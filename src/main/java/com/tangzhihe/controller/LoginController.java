@@ -28,7 +28,7 @@ public class LoginController extends  AbstractController{
     @RequestMapping("/toLogin")
     public String toLogin(Model model){
         model.addAttribute("ctx", getContextPath()+"/");
-        return "login";
+        return "loginPage";
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
