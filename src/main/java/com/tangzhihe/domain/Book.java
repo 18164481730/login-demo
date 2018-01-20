@@ -42,6 +42,10 @@ public class Book {
 	public void setTitle(String title) {
 		this.title = title == null ? null : title.trim();
 	}
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", bookName=" + bookName + ", author=" + author + ", title=" + title + "]";
+	}
 }
 
 

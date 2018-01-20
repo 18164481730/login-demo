@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tangzhihe.domain.Book;
-import com.tangzhihe.model.BookModel;
 import com.tangzhihe.service.BookService;
 
 
@@ -35,8 +37,8 @@ public class BookController  extends AbstractController{
     @RequestMapping("")
     public String book(ModelMap map){
         map.addAttribute("ctx", getContextPath()+"/");
-        BookModel bookModel = new BookModel();
-        List<Book> bookList = bookService.queryBookList(bookModel);
+        Book book = new Book();
+        List<Book> bookList = bookService.queryBookList(book);
         map.addAttribute("books", bookList);
         return "bookList";
     }
@@ -47,9 +49,27 @@ public class BookController  extends AbstractController{
      * @return
      */
     @RequestMapping(value = "/showAddPage" , method = RequestMethod.GET)
-    public String createUserForm(ModelMap map) {
+    public String showAddPage() {
     	return "bookAdd";
     }
+    
+    /**
+     * 显示用户更新页面
+     * @return
+     */
+    @RequestMapping(value = "/showUpdatePage" , method = RequestMethod.GET)
+    public String showUpdatePage(HttpServletRequest request, HttpServletResponse response) {
+    	String id = request.getParameter("id"); 
+    	Book book = new Book(); 
+    	book.setId(Long.parseLong(id));
+    	List<Book> bookList = bookService.queryBookList(book);
+    	if(bookList.size() > 0) {
+    		ModelMap map = new ModelMap();
+    		map.addAttribute("book", bookList.get(0));
+    	}
+    	return "bookUpdate";
+    }
+    
     
     /**
      * 删除用户列表

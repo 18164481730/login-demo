@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.tangzhihe.domain.Book;
-import com.tangzhihe.model.BookModel;
 
 public interface BookDao {
 	/**
@@ -13,7 +12,7 @@ public interface BookDao {
 	 * @param map
 	 * @return
 	 */
-	public List<Book> queryBookList(@Param("entity") BookModel model);
+	public List<Book> queryBookList(@Param("entity") Book book);
 	
 	/**
 	 * 删除数据

@@ -3,10 +3,9 @@ package com.tangzhihe.service;
 import java.util.List;
 
 import com.tangzhihe.domain.Book;
-import com.tangzhihe.model.BookModel;
 
 public interface BookService {
-	public List<Book> queryBookList(BookModel bookModel);
+	public List<Book> queryBookList(Book book);
 	
 	public int save(Book Book);
 	

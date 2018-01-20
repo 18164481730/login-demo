@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.tangzhihe.dao.BookDao;
 import com.tangzhihe.domain.Book;
-import com.tangzhihe.model.BookModel;
 import com.tangzhihe.service.BookService;
 
 
@@ -18,8 +17,8 @@ public class BookServiceImpl implements BookService {
     private BookDao  bookDao;
 
     @Override
-    public List<Book> queryBookList(BookModel bookModel) {
-        return bookDao.queryBookList(bookModel);
+    public List<Book> queryBookList(Book book) {
+        return bookDao.queryBookList(book);
     }
 
 	@Override

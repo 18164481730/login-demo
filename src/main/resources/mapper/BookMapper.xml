@@ -10,6 +10,9 @@
 	<select id="queryBookList" resultMap="bookMap">
 		SELECT * FROM t_book book WHERE 1 = 1
 		<if test="entity != null">
+			<if test="entity.id != null and entity.id != ''">
+				<![CDATA[ AND book.id = #{entity.id} ]]>
+			</if>
 			<if test="entity.bookName != null and entity.bookName != ''">
 				<![CDATA[ AND book.bookname LIKE CONCAT('%',#{entity.bookName},'%') ]]>
 			</if>
