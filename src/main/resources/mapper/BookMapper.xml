@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangzhihe.dao.BookDao">
+	<resultMap type="com.tangzhihe.domain.Book" id="bookMap">
+		<result column="id" property="id" />
+	    <result column="bookname" property="bookName" />
+	    <result column="author" property="author" />
+	    <result column="title" property="title" />
+	</resultMap>
+	<select id="queryBookList" resultMap="bookMap">
+		SELECT * FROM t_book book WHERE 1 = 1
+		<if test="entity != null">
+			<if test="entity.bookName != null and entity.bookName != ''">
+				<![CDATA[ AND book.bookname LIKE CONCAT('%',#{entity.bookName},'%') ]]>
+			</if>
+			<if test="entity.author != null and entity.author != ''">
+				<![CDATA[ AND book.title LIKE CONCAT('%',#{entity.author},'%') ]]>
+			</if>
+		</if>
+		ORDER BY book.id DESC
+	</select>
+	
+	<delete id="deleteByBook" parameterType="java.lang.Long">
+		DELETE FROM t_book WHERE id = #{id} 
+	</delete>
+	
+	<insert id="insertByBook" parameterType="com.tangzhihe.domain.Book">
+		INSERT INTO t_book (id,bookName,author,title) 
+		            values(#{entity.id},#{entity.bookName},#{entity.author},#{entity.title});
+	</insert>
+	
+	<update id="updateByBook" parameterType="com.tangzhihe.domain.Book">
+		UPDATE t_book SET bookname = #{entity.bookName},author = #{entity.author},title = #{entity.title}
+		                      WHERE id = #{entity.id}
+	</update>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tangzhihe.dao.UserDao">
+	<resultMap type="com.tangzhihe.domain.User" id="userMap">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="passwd" property="password"/>
+	</resultMap>
+	<select id="queryUserList" resultMap="userMap">
+		SELECT * FROM t_user user WHERE 1 = 1
+		<if test="entity != null">
+			<if test="entity.username != null and entity.username != ''">
+				<![CDATA[ AND user.username = #{entity.username} ]]>
+			</if>
+			<if test="entity.password != null and entity.password  != ''">
+				<![CDATA[ AND user.passwd = #{entity.password} ]]>
+			</if>
+		</if>
+		ORDER BY user.id DESC
+	</select>
+</mapper>
