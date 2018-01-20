@@ -44,9 +44,10 @@ public class BookController  extends AbstractController{
      */
     @RequestMapping(value = "/showAddPage" , method = RequestMethod.GET)
     public String createUserForm(ModelMap map) {
-    	System.out.println("HelloWorld");
     	return "bookAdd";
     }
+    
+    
 }
 
 
