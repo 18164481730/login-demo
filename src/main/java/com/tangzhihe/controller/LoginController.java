@@ -25,12 +25,23 @@ public class LoginController extends  AbstractController{
     @Autowired
     private UserService userService;
     
+    /**
+     * 跳转登录页面
+     * @param model
+     * @return
+     */
     @RequestMapping("/toLogin")
     public String toLogin(Model model){
         model.addAttribute("ctx", getContextPath()+"/");
         return "loginPage";
     }
-
+    
+    /**
+     * 登录模块
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response){
@@ -56,4 +67,57 @@ public class LoginController extends  AbstractController{
         }
         return map;
     }
+    
+    /**
+     * 跳转注册页面
+     * @param model
+     * @return
+     */
+    @RequestMapping("/addUserPage")
+    public String addUserPage(Model model){
+    	return "addUserPage";
+    }
+    
+    /**
+     * 注册用户
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/addUser",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> addUser(HttpServletRequest request, HttpServletResponse response){
+        request.setAttribute("ctx",request.getContextPath());
+        Map<String,Object> map =new HashMap<String,Object>();
+        String userName=request.getParameter("userName");
+        String password=request.getParameter("password");
+        if(StringUtil.isNull(userName)){
+        	map.put("result", "0");
+        } else if(StringUtil.isNull(password)) {
+        	map.put("result", "1");
+        } else{
+            User user =new User();
+            user.setUsername(userName);
+            user.setPassword(Md5Util.encrypt(password));
+            userService.save(user);
+	        map.put("result", "2");
+        }
+        return map;
+    } 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,4 +18,9 @@
 		</if>
 		ORDER BY user.id DESC
 	</select>
+	
+	<insert id="insertByUser" parameterType="com.tangzhihe.domain.User">
+		INSERT INTO t_user (id,username,passwd) 
+		            values(#{entity.id},#{entity.username},#{entity.password});
+	</insert>
 </mapper>

@@ -22,8 +22,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void deleteBatch(Long[] ids) {
-		
+	public int save(User user) {
+		return userDao.insertByUser(user);
+	}
+
+	@Override
+	public int update(User user) {
+		return userDao.updateByUser(user);
 	}
 
 }
