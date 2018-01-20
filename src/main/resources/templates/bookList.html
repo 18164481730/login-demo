@@ -7,6 +7,29 @@
         <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
         <meta charset="UTF-8"/>
         <title>书籍列表</title>
+        <script type="text/javascript">
+        	//删除
+        	function deleteBook(id){
+        		$.ajax({
+                    type:"post",
+                    url:"book/deleteBook",
+                    cache: false,
+                    contentType: "application/json",
+                    data: JSON.stringify(id),
+                    success:function(r){
+                    	alert(r.msg);
+                    	 window.location.href = "book";
+                    },
+                    error:function(){
+                    	
+                    }
+                });
+        	}
+        	//更新
+        	function updateBook(id){
+        		alert(id);
+        	}
+        </script>
     </head>
 
     <body>
@@ -31,11 +54,11 @@
                     <tr th:each="book:${books}">
                         <td scope="row" th:text="${book.id}"></td>
                         <td>
-                        	<a href="" th:text="${book.bookName}"></a>
+                        	<a th:onclick="'javascript:updateBook(\''+${book.id}+'\')'" th:text="${book.bookName}"></a>
                         </td>
                         <td th:text="${book.author}"></td>
                         <td th:text="${book.title}"></td>
-                        <td><a class="btn btn-danger" href="">删除</a></td>
+                        <td><a class="btn btn-danger" th:onclick="'javascript:deleteBook(\''+${book.id}+'\')'">删除</a></td>
                     </tr>
                 </tbody>
             </table>

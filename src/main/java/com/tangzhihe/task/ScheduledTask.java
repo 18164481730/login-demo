@@ -16,7 +16,7 @@ public class ScheduledTask {
 	@Autowired
 	private BookService bookService;
 	
-	@Scheduled(cron = "0 0/1 * * * ?")
+	@Scheduled(cron = "0 0/20 * * * ?")
 	public void getTask1() {
 		System.out.println("*****************定时任务开启******************");
 		Book book = new Book();

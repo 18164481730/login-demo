@@ -1,13 +1,17 @@
 package com.tangzhihe.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tangzhihe.domain.Book;
 import com.tangzhihe.model.BookModel;
@@ -47,7 +51,22 @@ public class BookController  extends AbstractController{
     	return "bookAdd";
     }
     
-    
+    /**
+     * 删除用户列表
+     * @param id
+     */
+    @RequestMapping(value = "/deleteBook" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleteBook(@RequestBody Long id) {
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	try {
+    		bookService.delete(id);
+		} catch (Exception e) {
+			map.put("msg", "执行错误!");
+		}
+    	map.put("msg", "执行成功!");
+    	return map;
+    }
 }
 
 

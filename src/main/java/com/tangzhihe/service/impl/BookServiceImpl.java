@@ -1,6 +1,5 @@
 package com.tangzhihe.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +15,25 @@ import com.tangzhihe.service.BookService;
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    private BookDao  BookDao;
+    private BookDao  bookDao;
 
     @Override
     public List<Book> queryBookList(BookModel bookModel) {
-        return BookDao.queryBookList(bookModel);
+        return bookDao.queryBookList(bookModel);
     }
 
 	@Override
 	public int save(Book Book) {
-		return BookDao.insertByBook(Book);
+		return bookDao.insertByBook(Book);
 	}
 
 	@Override
 	public int update(Book Book) {
-		return BookDao.updateByBook(Book);
+		return bookDao.updateByBook(Book);
 	}
 
 	@Override
-	public void delete(Long[] ids) {
-		 Arrays.stream(ids).forEach(id->BookDao.deleteByBook(id));
+	public void delete(Long id) {
+		bookDao.deleteByBook(id);
 	}
 }
