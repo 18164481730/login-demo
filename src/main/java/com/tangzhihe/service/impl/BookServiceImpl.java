@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tangzhihe.dao.BookDao;
 import com.tangzhihe.domain.Book;
 import com.tangzhihe.service.BookService;
+import com.tangzhihe.util.Page;
 
 
 @Service
@@ -35,4 +36,32 @@ public class BookServiceImpl implements BookService {
 	public void delete(Long id) {
 		bookDao.deleteByBook(id);
 	}
+
+	@Override
+	public Page<Book> queryBookListByPage(Page<Book> page, Book book) {
+		int start = (page.getNumPerPage() - 1) * page.getPageNum();
+		page.setPageNum(start);
+		List<Book> list = bookDao.queryBookListByPage(page, book);
+		Page<Book> bookPage = new Page<Book>();
+		bookPage.setNumPerPage(page.getPageNum());
+		bookPage.setPageList(list);
+		return bookPage;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

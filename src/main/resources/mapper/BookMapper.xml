@@ -7,6 +7,21 @@
 	    <result column="author" property="author" />
 	    <result column="title" property="title" />
 	</resultMap>
+	<select id="queryBookListByPage" resultMap="bookMap">
+		SELECT * FROM t_book book WHERE 1 = 1
+		<if test="entity != null">
+			<if test="entity.id != null and entity.id != ''">
+				<![CDATA[ AND book.id = #{entity.id} ]]>
+			</if>
+			<if test="entity.bookName != null and entity.bookName != ''">
+				<![CDATA[ AND book.bookname LIKE CONCAT('%',#{entity.bookName},'%') ]]>
+			</if>
+			<if test="entity.author != null and entity.author != ''">
+				<![CDATA[ AND book.title LIKE CONCAT('%',#{entity.author},'%') ]]>
+			</if>
+		</if>
+		ORDER BY book.id DESC limit #{page.pageNum},#{page.numPerPage}
+	</select>
 	<select id="queryBookList" resultMap="bookMap">
 		SELECT * FROM t_book book WHERE 1 = 1
 		<if test="entity != null">
