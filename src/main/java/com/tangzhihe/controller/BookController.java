@@ -64,8 +64,9 @@ public class BookController  extends AbstractController{
     	book.setId(Long.parseLong(id));
     	List<Book> bookList = bookService.queryBookList(book);
     	if(bookList.size() > 0) {
-    		ModelMap map = new ModelMap();
-    		map.addAttribute("book", bookList.get(0));
+    		ModelMap model = new ModelMap();
+    		book = bookList.get(0);
+    		model.addAttribute("bookModel", book);
     	}
     	return "updateBookPage";
     }

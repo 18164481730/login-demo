@@ -3,13 +3,13 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
     <head>
-        <title>新增书籍</title>
+        <title>修改书籍</title>
         <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/updateBookPage.css}" />
         <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
     </head>
     <body>
-    	<input th:hidden="hidden" th:id="id"/>
         <form id="updateBookPageForm">
+	    	<input th:hidden="hidden" th:id="id" />
             <table>
                 <tbody>
                     <tr>
