@@ -34,7 +34,7 @@
         <tbody id="bookBody">
         <tr th:each="book:${books}">
             <td th:text="${book.id}"></td>
-            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.bookName}" th:onclick="'javascript:showUpdatePage(\''+${book.id}+'\')'"></td>
             <td th:text="${book.author}"></td>
             <td th:text="${book.title}"></td>
             <td>
@@ -49,8 +49,16 @@
 <script>
 	//跳转增加页面
 	function showBookPage(){
-		window.location.href = "book/showAddPage";
+		window.open("book/showAddPage","新增页面",
+        "fullscreen=yes,status=yes,toolbar=yes, menubar=yes,location=yes,resizable=yes,scrollbars=yes")
 	}
+	
+	//跳转修改页面
+	function showUpdatePage(id){
+		window.open("book/showUpdatePage?id="+id,"修改页面",
+        "fullscreen=yes,status=yes,toolbar=yes, menubar=yes,location=yes,resizable=yes,scrollbars=yes")
+	}
+	
     //删除
 	function deleteBook(id){
 		$.ajax({
