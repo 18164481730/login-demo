@@ -43,5 +43,10 @@ public class Page<T> {
 	public void setPageList(List<T> pageList) {
 		this.pageList = pageList;
 	}
+	@Override
+	public String toString() {
+		return "Page [pageNum=" + pageNum + ", numPerPage=" + numPerPage + ", totalCount=" + totalCount
+				+ ", totalPageNum=" + totalPageNum + ", pageList=" + pageList + "]";
+	}
 	
 }
