@@ -96,6 +96,34 @@ public class BookController  extends AbstractController{
         return map;
     }
     
+    /**
+     * 修改书籍列表
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/updateBook" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> updateBook(HttpServletRequest request, HttpServletResponse response) {
+    	Map<String,Object> map =new HashMap<String,Object>();
+    	String id = request.getParameter("id");
+    	String bookName = request.getParameter("bookName");
+        String author = request.getParameter("author");
+        String title = request.getParameter("title");
+        Book book = new Book();
+        book.setId(Long.parseLong(id));
+        book.setBookName(bookName);
+        book.setAuthor(author);
+        book.setTitle(title);
+        try {
+        	bookService.update(book);
+        	map.put("result", "1");
+		} catch (Exception e) {
+			map.put("result", "0");
+		}
+        return map;
+    }
+    
     
     /**
      * 删除书籍列表

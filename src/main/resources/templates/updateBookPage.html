@@ -39,6 +39,7 @@
     <script>
     	//修改书籍
         function addBook() {
+    		var id = $("#id").val();
             var bookName = $("#bookName").val();
             var author = $("#author").val();
             var title = $("#title").val();
@@ -55,9 +56,10 @@
                 return;
             }
             $.ajax({
-                url:"addBook",
+                url:"updateBook",
                 type:"POST",
                 data:{
+                	"id":id,
                 	"bookName":bookName,
                 	"author":author,
                 	"title":title
