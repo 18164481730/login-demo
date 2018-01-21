@@ -4,7 +4,7 @@
 
 <head>
     <title>查看书籍列表</title>
-    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/searchEarningExpenseMonthPage.css}" />
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/searchBookPage.css}" />
     <link rel="stylesheet" th:href="@{/css/paginate.css}" media="screen" type="text/css" />
     <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery.paginate.js}"></script>
@@ -20,7 +20,7 @@
     </table>
 </div>
 <div>
-    <table class="earningExpenseMonthTable" border="1">
+    <table class="bookTable" border="1">
         <tr>
             <td th:width="100px">ID</td>
             <td th:width="200px">书名</td>
@@ -28,7 +28,7 @@
             <td th:width="200px">描述</td>
             <td th:width="100px">操作</td>
         </tr>
-        <tbody id="earningExpenseMonthBody">
+        <tbody id="bookBody">
         <tr th:each="book:${books}">
             <td th:text="${book.id}"></td>
             <td th:text="${book.bookName}"></td>
@@ -44,10 +44,6 @@
 </body>
 
 <script>
-    $(document).ready(function () {
-    	
-    });
-
     //删除
 	function deleteBook(id){
 		$.ajax({
@@ -65,86 +61,5 @@
             }
         });
 	}
-    
-    function searchBookList() {
-        queryForPages(1);
-    }
-
-    $(function() {
-        $("#earningExpenseMonthPageCount").paginate({
-            count: $("#totalCount").val(),
-            start: 1,
-            display: 15,
-            border: true,
-            border_color: '#fff',
-            text_color: '#fff',
-            background_color: '#9F35FF',
-            border_hover_color: '#ccc',
-            text_hover_color: '#000',
-            background_hover_color: '#fff',
-            images: false,
-            mouse: 'press',
-            onChange: queryForPages
-        });
-    });
-
-
-    function queryForPages(pageNum) {
-        var beginYear = $("#beginYear").val();
-        var beginMonth = $("#beginMonth").val();
-        var endYear = $("#endYear").val();
-        var endMonth = $("#endMonth").val();
-        var accessToken = localStorage.accessToken;
-        var userId = $("#userId").val();
-        if(accessToken == null || accessToken == "" || accessToken == undefined){
-            alert("请先登录");
-            window.location.href = "/loginPage";
-            return;
-        }
-        if (beginYear > endYear) {
-            alert("开始年份不能大于结束年份");
-            return;
-        }
-        if (beginMonth > endMonth) {
-            alert("开始月份不能大于结束月份");
-            return;
-        }
-        var earningExpenseMonthArray = {};
-        earningExpenseMonthArray["beginYear"] = beginYear;
-        earningExpenseMonthArray["beginMonth"] = beginMonth;
-        earningExpenseMonthArray["endYear"] = endYear;
-        earningExpenseMonthArray["endMonth"] = endMonth;
-        earningExpenseMonthArray["pageNum"] = pageNum;
-        earningExpenseMonthArray["userId"] = userId;
-        earningExpenseMonthArray["accessToken"] = accessToken;
-        $.ajax({
-            url: "/getEarningExpenseMonths",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json",
-            beforeSend:function (request) {
-                request.setRequestHeader("accessToken",accessToken);
-            },
-            async: false,
-            data: JSON.stringify(earningExpenseMonthArray),
-            success: function callbackFun(data) {
-                //解析json
-                if (data.responseCode == 200) {
-                    var info = data.data;
-                    //清空数据
-                    clearDate();
-                    fillTable(info);
-                } else {
-                    alert(data.responseDesc);
-                    return;
-                }
-            }
-        });
-    }
-
-    //清空数据
-    function clearDate() {
-        $("#earningExpenseMonthBody").html("");
-    }
 </script>
 </html>
