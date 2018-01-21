@@ -36,7 +36,6 @@ public class BookController  extends AbstractController{
      */
     @RequestMapping("")
     public String book(ModelMap map){
-        map.addAttribute("ctx", getContextPath()+"/");
         Book book = new Book();
         List<Book> bookList = bookService.queryBookList(book);
         map.addAttribute("books", bookList);

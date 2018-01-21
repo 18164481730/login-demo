@@ -32,7 +32,6 @@ public class LoginController extends  AbstractController{
      */
     @RequestMapping("/toLogin")
     public String toLogin(Model model){
-        model.addAttribute("ctx", getContextPath()+"/");
         return "loginPage";
     }
     
@@ -45,7 +44,6 @@ public class LoginController extends  AbstractController{
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> login(HttpServletRequest request, HttpServletResponse response){
-        request.setAttribute("ctx",request.getContextPath());
         Map<String,Object> map =new HashMap<String,Object>();
         String userName=request.getParameter("userName");
         String password=request.getParameter("password");
@@ -87,7 +85,6 @@ public class LoginController extends  AbstractController{
     @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> addUser(HttpServletRequest request, HttpServletResponse response){
-        request.setAttribute("ctx",request.getContextPath());
         Map<String,Object> map =new HashMap<String,Object>();
         String userName=request.getParameter("userName");
         String password=request.getParameter("password");
