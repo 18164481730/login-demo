@@ -16,6 +16,9 @@
             <td>
                 <input th:type="button" th:value="查询" onclick="searchBookList()" />
             </td>
+            <td>
+                <input th:type="button" th:value="新增" onclick="showBookPage()" />
+            </td>
         </tr>
     </table>
 </div>
@@ -44,6 +47,10 @@
 </body>
 
 <script>
+	//跳转增加页面
+	function showBookPage(){
+		window.location.href = "book/showAddPage";
+	}
     //删除
 	function deleteBook(id){
 		$.ajax({

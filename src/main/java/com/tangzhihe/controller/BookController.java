@@ -30,7 +30,7 @@ public class BookController  extends AbstractController{
     private BookService bookService;
 
     /**
-     * 查询列表
+     * 查询书籍列表
      * @param map
      * @return
      */
@@ -44,17 +44,17 @@ public class BookController  extends AbstractController{
     }
     
     /**
-     * 显示用户列表
+     * 跳转增加书籍页面
      * @param map
      * @return
      */
     @RequestMapping(value = "/showAddPage" , method = RequestMethod.GET)
     public String showAddPage() {
-    	return "bookAdd";
+    	return "addBookPage";
     }
     
     /**
-     * 显示用户更新页面
+     * 跳转更新书籍页面
      * @return
      */
     @RequestMapping(value = "/showUpdatePage" , method = RequestMethod.GET)
@@ -67,12 +67,38 @@ public class BookController  extends AbstractController{
     		ModelMap map = new ModelMap();
     		map.addAttribute("book", bookList.get(0));
     	}
-    	return "bookUpdate";
+    	return "updateBookPage";
+    }
+    
+    /**
+     * 增加书籍列表
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/addBook" , method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> addBook(HttpServletRequest request, HttpServletResponse response) {
+    	Map<String,Object> map =new HashMap<String,Object>();
+    	String bookName = request.getParameter("bookName");
+        String author = request.getParameter("author");
+        String title = request.getParameter("title");
+        Book book = new Book();
+        book.setBookName(bookName);
+        book.setAuthor(author);
+        book.setTitle(title);
+        try {
+        	bookService.save(book);
+        	map.put("result", "1");
+		} catch (Exception e) {
+			map.put("result", "0");
+		}
+        return map;
     }
     
     
     /**
-     * 删除用户列表
+     * 删除书籍列表
      * @param id
      */
     @RequestMapping(value = "/deleteBook" , method = RequestMethod.POST)

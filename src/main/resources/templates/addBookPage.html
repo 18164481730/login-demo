@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+    <head>
+        <title>新增书籍</title>
+        <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/addBookPage.css}" />
+        <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+    </head>
+    <body>
+        <form id="addBookPageForm">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>书名</td>
+                        <td><input th:type="text" th:id="bookName" th:name="bookName" /></td>
+                        <td><font color="red">*</font></td>
+                    </tr>
+                    <tr>
+                        <td>作者</td>
+                        <td><input th:type="text" th:id="author" th:name="author" /></td>
+                        <td><font color="red">*</font></td>
+                    </tr>
+                    <tr>
+                        <td>描述</td>
+                        <td><input th:type="text" th:id="title" th:name="title" /></td>
+                        <td><font color="red">*</font></td>
+                    </tr>
+                    <tr>
+                        <td><input th:type="button" onclick="addBook()" th:value="确定" /></td>
+                        <td><input th:type="button" onclick="cancelAddBook()" th:value="取消" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </body>
+
+    <script>
+    	//新增书籍
+        function addBook() {
+            var bookName = $("#bookName").val();
+            var author = $("#author").val();
+            var title = $("#title").val();
+            if(bookName == "" || bookName == undefined){
+                alert("请输入书名!");
+                return;
+            }
+            if(author == "" || author == undefined){
+                alert("请输入作者!");
+                return;
+            }
+            if(title == "" || title == undefined){
+                alert("请输入描述");
+                return;
+            }
+            $.ajax({
+                url:"addBook",
+                type:"POST",
+                data:{
+                	"bookName":bookName,
+                	"author":author,
+                	"title":title
+                },
+                dataType:"json",
+                success:function(data){
+                	if (data.result == "1") {
+                		alert("新增书籍成功!");
+                    } else {
+                    	alert("注册失败,请重试!");
+                    }
+                },
+                error:function(data){
+                    alert("系统异常!");
+                }
+            });
+        }
+        //取消新增书籍
+        function cancelAddBook(){
+        	$("#bookName").val("");
+            $("#author").val("");
+            $("#title").val("");
+        }
+    </script>
+</html>
