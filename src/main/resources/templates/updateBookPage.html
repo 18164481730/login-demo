@@ -8,23 +8,23 @@
         <script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
     </head>
     <body>
-        <form id="updateBookPageForm">
-	    	<input th:hidden="hidden" th:id="id" />
+        <form id="updateBookPageForm" th:object="${bookModel}">
+	    	<input th:hidden="hidden" th:id="id" th:value="*{id}"/>
             <table>
                 <tbody>
                     <tr>
                         <td>书名</td>
-                        <td><input th:type="text" th:id="bookName" th:name="bookName" /></td>
+                        <td><input th:type="text" th:id="bookName" th:name="bookName" th:value="*{bookName}"/></td>
                         <td><font color="red">*</font></td>
                     </tr>
                     <tr>
                         <td>作者</td>
-                        <td><input th:type="text" th:id="author" th:name="author" /></td>
+                        <td><input th:type="text" th:id="author" th:name="author" th:value="*{author}"/></td>
                         <td><font color="red">*</font></td>
                     </tr>
                     <tr>
                         <td>描述</td>
-                        <td><input th:type="text" th:id="title" th:name="title" /></td>
+                        <td><input th:type="text" th:id="title" th:name="title" th:value="*{title}"/></td>
                         <td><font color="red">*</font></td>
                     </tr>
                     <tr>
@@ -35,7 +35,6 @@
             </table>
         </form>
     </body>
-
     <script>
     	//修改书籍
         function addBook() {
@@ -68,6 +67,7 @@
                 success:function(data){
                 	if (data.result == "1") {
                 		alert("修改书籍成功!");
+                		window.close();
                     } else {
                     	alert("修改失败,请重试!");
                     }

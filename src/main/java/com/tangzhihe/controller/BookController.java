@@ -58,15 +58,14 @@ public class BookController  extends AbstractController{
      * @return
      */
     @RequestMapping(value = "/showUpdatePage" , method = RequestMethod.GET)
-    public String showUpdatePage(HttpServletRequest request, HttpServletResponse response) {
+    public String showUpdatePage(HttpServletRequest request, ModelMap map) {
     	String id = request.getParameter("id"); 
     	Book book = new Book(); 
     	book.setId(Long.parseLong(id));
     	List<Book> bookList = bookService.queryBookList(book);
     	if(bookList.size() > 0) {
-    		ModelMap model = new ModelMap();
     		book = bookList.get(0);
-    		model.addAttribute("bookModel", book);
+    		map.addAttribute("bookModel",book);
     	}
     	return "updateBookPage";
     }
