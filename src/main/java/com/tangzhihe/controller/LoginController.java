@@ -37,6 +37,7 @@ public class LoginController extends  AbstractController{
     
     /**
      * 登录模块
+     * 登录逻辑:根据输入的用户名看是否能查询结果，如果无结果，则无此用户；如果有结果，则比对密码，看是否正确
      * @param request
      * @param response
      * @return
@@ -78,6 +79,7 @@ public class LoginController extends  AbstractController{
     
     /**
      * 注册用户
+     * 密码用MD5Util加密
      * @param request
      * @param response
      * @return

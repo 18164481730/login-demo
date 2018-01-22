@@ -16,6 +16,10 @@ public class ScheduledTask {
 	@Autowired
 	private BookService bookService;
 	
+	/**
+	 * 定时任务
+	 * 每二十分钟执行一次
+	 */
 	@Scheduled(cron = "0 0/20 * * * ?")
 	public void getTask1() {
 		System.out.println("*****************定时任务开启******************");

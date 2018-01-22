@@ -6,6 +6,8 @@
 		<result column="username" property="username"/>
 		<result column="passwd" property="password"/>
 	</resultMap>
+	
+	<!-- 查询用户 -->
 	<select id="queryUserList" resultMap="userMap">
 		SELECT * FROM t_user user WHERE 1 = 1
 		<if test="entity != null">
@@ -19,6 +21,8 @@
 		ORDER BY user.id DESC
 	</select>
 	
+	
+	<!-- 新增用户 -->
 	<insert id="insertByUser" parameterType="com.tangzhihe.domain.User">
 		INSERT INTO t_user (id,username,passwd) 
 		            values(#{entity.id},#{entity.username},#{entity.password});

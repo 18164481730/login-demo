@@ -7,6 +7,7 @@
 	    <result column="author" property="author" />
 	    <result column="title" property="title" />
 	</resultMap>
+	<!-- 分页查询  暂未完成 -->
 	<select id="queryBookListByPage" resultMap="bookMap">
 		SELECT * FROM t_book book WHERE 1 = 1
 		<if test="entity != null">
@@ -22,6 +23,8 @@
 		</if>
 		ORDER BY book.id DESC limit #{page.pageNum},#{page.numPerPage}
 	</select>
+	
+	<!-- 查询书籍 -->
 	<select id="queryBookList" resultMap="bookMap">
 		SELECT * FROM t_book book WHERE 1 = 1
 		<if test="entity != null">
@@ -38,15 +41,18 @@
 		ORDER BY book.id DESC
 	</select>
 	
+	<!-- 删除书籍 -->
 	<delete id="deleteByBook" parameterType="java.lang.Long">
 		DELETE FROM t_book WHERE id = #{id} 
 	</delete>
 	
+	<!-- 新增书籍 -->
 	<insert id="insertByBook" parameterType="com.tangzhihe.domain.Book">
 		INSERT INTO t_book (id,bookName,author,title) 
 		            values(#{entity.id},#{entity.bookName},#{entity.author},#{entity.title});
 	</insert>
 	
+	<!-- 更新书籍 -->
 	<update id="updateByBook" parameterType="com.tangzhihe.domain.Book">
 		UPDATE t_book SET bookname = #{entity.bookName},author = #{entity.author},title = #{entity.title}
 		                      WHERE id = #{entity.id}
