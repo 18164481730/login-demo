@@ -1,8 +1,5 @@
 package com.tangzhihe.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * 字符串处理工具类
  * @author ouzhb
